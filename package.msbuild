@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Package"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <UsingTask
+        AssemblyFile=".build\MSBuild.ExtensionPack.dll"
+        TaskName="MSBuild.ExtensionPack.UI.Console" />
+
+    <UsingTask
+        AssemblyFile=".build\MSBuild.ExtensionPack.dll"
+        TaskName="MSBuild.ExtensionPack.Compression.Zip"/>
+
+    <Target Name="GetVersion">
+        <Console TaskAction="Beep" />
+        <Console TaskAction="ReadLine" UserPrompt="Enter Version String:">
+            <Output TaskParameter="UserResponse" PropertyName="VersionString" />
+        </Console>
+    </Target>
+
+    <Target Name="Clean">
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Clean"
+                 BuildInParallel="true"
+                 Properties="Configuration=Debug;Platform=Win32" />
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Clean"
+                 BuildInParallel="true"
+                 Properties="Configuration=Release;Platform=Win32" />
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Clean"
+                 BuildInParallel="true"
+                 Properties="Configuration=Debug;Platform=x64" />
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Clean"
+                 BuildInParallel="true"
+                 Properties="Configuration=Release;Platform=x64" />
+        <RemoveDir Directories="package" />
+    </Target>
+
+    <Target Name="Build">
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Build"
+                 BuildInParallel="true"
+                 Properties="Configuration=Debug;Platform=Win32" />
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Build"
+                 BuildInParallel="true"
+                 Properties="Configuration=Release;Platform=Win32" />
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Build"
+                 BuildInParallel="true"
+                 Properties="Configuration=Debug;Platform=x64"
+                 Condition="'$(Platform)'!='Win32'"/>
+        <MSBuild Projects="xUnit++.sln"
+                 Targets="Build"
+                 BuildInParallel="true"
+                 Properties="Configuration=Release;Platform=x64"
+                 Condition="'$(Platform)'!='Win32'"/>
+    </Target>
+
+    <Target Name="Rebuild">
+        <CallTarget Targets="Clean;Build" />
+    </Target>
+
+    <Target Name="PreparePackage" DependsOnTargets="Rebuild">
+        <RemoveDir Directories="package" />
+
+        <ItemGroup>
+            <IncludeFiles Include="xUnit++\xUnit++\*.h" />
+            <BinFiles Include="bin\xUnit++\*.lib" />
+            <RunnerFiles Include="bin\xUnit++.console\*.exe" />
+            <TestAdapterFiles Include="bin\xUnit++.VsRunner\xUnit++.VsRunner.x86.dll;xUnit++.VsRunner\[Content_Types].xml;xUnit++.VsRunner\extension.vsixmanifest;License.txt" />
+        </ItemGroup>
+
+        <Copy SourceFiles="@(IncludeFiles)"
+              DestinationFolder="package\xUnit++\include\xUnit++\" />
+        <Copy SourceFiles="@(BinFiles)"
+              DestinationFolder="package\xUnit++\lib\" />
+        <Copy SourceFiles="@(RunnerFiles)"
+              DestinationFolder="package\xUnit++\bin\" />
+        <Copy SourceFiles="@(TestAdapterFiles)"
+              DestinationFolder="package\TestAdapter\" />
+        <Copy SourceFiles="License.txt"
+              DestinationFolder="package\xUnit++\" />
+        <Copy SourceFiles="License.txt"
+              DestinationFolder="package\TestAdapter\" />
+    </Target>
+
+    <Target Name="Package" DependsOnTargets="GetVersion;PreparePackage">
+        <ItemGroup>
+            <FilesToCompress Include="package\xUnit++\**\*" />
+        </ItemGroup>
+
+        <Zip TaskAction="Create"
+             CompressFiles="@(FilesToCompress)"
+             RemoveRoot="$(MSBuildThisFileDirectory)package"
+             ZipFileName="package\xUnit++.vc.$(VersionString).zip" />
+
+        <RemoveDir Directories="package/TestAdapter;package/xUnit++" />
+    </Target>
+
+    <Target Name="Vsix" DependsOnTargets="PreparePackage">
+        <ItemGroup>
+            <VsixItems Include="package\TestAdapter\**\*" />
+        </ItemGroup>
+        <Zip TaskAction="Create"
+             CompressFiles="@(VsixItems)"
+             RemoveRoot="$(MSBuildThisFileDirectory)package\TestAdapter"
+             ZipFileName="package\xunit++.testadapter.vsix" />
+    </Target>
+</Project>

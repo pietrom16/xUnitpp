@@ -1,0 +1,11 @@
+package/
+bin/
+int/
+ipch/
+TestResults/
+obj/
+*.suo
+*.user
+*.sdf
+*_ReSharper.*
+*.dblite

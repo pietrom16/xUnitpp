@@ -1,0 +1,9 @@
+Import('env')
+
+env.Append(CPPDEFINES = ['WIN32', '_VARIADIC_MAX=10'])
+env.Append(CCFLAGS = [ '/EHsc' ])
+
+if env['debug'] == True:
+    env.Append(CCFLAGS = [ '/MDd' ])
+else:
+    env.Append(CCFLAGS = [ '/MD' ])

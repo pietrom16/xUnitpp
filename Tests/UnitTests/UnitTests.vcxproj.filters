@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Assert.Contains.cpp" />
+    <ClCompile Include="Assert.DoesNotContain.cpp" />
+    <ClCompile Include="Assert.DoesNotThrow.cpp" />
+    <ClCompile Include="Assert.Empty.cpp" />
+    <ClCompile Include="Assert.Equal.cpp" />
+    <ClCompile Include="Assert.Fail.cpp" />
+    <ClCompile Include="Assert.False.cpp" />
+    <ClCompile Include="Assert.InRange.cpp" />
+    <ClCompile Include="Assert.NotEqual.cpp" />
+    <ClCompile Include="Assert.NotInRange.cpp" />
+    <ClCompile Include="Assert.NotNull.cpp" />
+    <ClCompile Include="Assert.NotSame.cpp" />
+    <ClCompile Include="Assert.Null.cpp" />
+    <ClCompile Include="Assert.Same.cpp" />
+    <ClCompile Include="Assert.Throws.cpp" />
+    <ClCompile Include="Assert.True.cpp" />
+    <ClCompile Include="Attributes.cpp" />
+    <ClCompile Include="Theory.cpp" />
+    <ClCompile Include="LineInfo.cpp" />
+    <ClCompile Include="TestRunner.cpp" />
+    <ClCompile Include="TestsCanOutputAnythingWithToString.cpp" />
+    <ClCompile Include="TestEvents.cpp" />
+    <ClCompile Include="ToString.cpp" />
+    <ClCompile Include="ErrorHandling.cpp" />
+    <ClCompile Include="..\Helpers\OutputRecord.cpp">
+      <Filter>Test Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Helpers\TestFactory.cpp">
+      <Filter>Test Helpers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Test Helpers">
+      <UniqueIdentifier>{005e2285-5a79-4c3b-9d4d-8ba638459f79}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Helpers\OutputRecord.h">
+      <Filter>Test Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Helpers\TestFactory.h">
+      <Filter>Test Helpers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+Import("env")
+
+copy = env.Clone()
+copy.Append(CPPDEFINES = ['DEBUG', '_DEBUG'])
+
+if env['windows'] == False:
+    copy.Append(CCFLAGS = [ '-g' ])
+
+Return("copy")

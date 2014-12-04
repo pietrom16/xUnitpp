@@ -1,0 +1,17 @@
+Import('env')
+
+targetFile = env['getTargetFile']('xUnit++.console', 'exe')
+intDir = env['getIntDir']('xUnit++.console')
+
+local = env.Clone()
+local.VariantDir(intDir, './', duplicate = 0)
+local.Append(CPPPATH = ['../xUnit++', '../xUnit++.Utility'])
+
+libs = [env['xUnitUtility'], env['xUnit']]
+
+if env['windows'] == False:
+    libs = libs + [ 'dl', 'pthread' ]
+
+target = local.Program(targetFile, Glob(intDir + '*.cpp'), LIBS = libs)
+
+Return('target')

@@ -1,0 +1,15 @@
+Import('env')
+
+targetFile = env['getTargetFile']('UnitTests', 'shared')
+intDir = env['getIntDir']('UnitTests')
+
+local = env.Clone()
+local.VariantDir(intDir, './', duplicate = 0)
+local.Append(CPPPATH = ['../../xUnit++', '..'])
+
+sources = Glob(intDir + '*.cpp')
+sources = sources + env['testHelpers']
+
+target = local.SharedLibrary(targetFile, sources, LIBS = env['xUnit'])
+
+Return('target')
