@@ -79,8 +79,8 @@ set(XUNITPP_ROOT_DIR "${CMAKE_CURRENT_LIST_DIR}")
 globrecurse_c_cpp_sources(XUNITPP_SRC_FILES_CORE ${XUNITPP_ROOT_DIR}/xUnit++)
 source_group(Source FILES ${XUNITPP_SRC_FILES_CORE})
 
-# Shared library
-add_library(xunitpp_core SHARED ${XUNITPP_SRC_FILES_CORE})
+# Static library, but ideally should be shared
+add_library(xunitpp_core STATIC ${XUNITPP_SRC_FILES_CORE})
 target_include_directories(xunitpp_core
 	PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++
 	PRIVATE ${XUNITPP_ROOT_DIR}/xUnit++/xUnit++)
