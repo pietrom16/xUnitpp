@@ -28,12 +28,6 @@ function(xunit_compiler_options target)
 	if(MINGW OR CMAKE_COMPILER_IS_GNUCXX OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
 		# Enable C++11 if gcc or clang
 		target_compile_options(${target} PUBLIC "-std=c++11")
-
-		# Debug infos in debug
-		target_compile_options(${target} PRIVATE $<$<CONFIG:Debug>:"-g">)
-
-		# Optimizations
-		target_compile_options(${target} PRIVATE $<$<NOT:$<CONFIG:Debug>>:"-O2">)
 		
 		# Remove __stdcall
 		target_compile_definitions(${target} PRIVATE "__stdcall=")
