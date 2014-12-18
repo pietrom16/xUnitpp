@@ -30,7 +30,7 @@ function(xunit_compiler_options target)
 		target_compile_options(${target} PUBLIC "-std=c++11")
 		
 		# Remove __stdcall
-		target_compile_definitions(${target} PRIVATE "__stdcall=")
+		target_compile_definitions(${target} PUBLIC "__stdcall=")
 	endif()
 endfunction()
 
