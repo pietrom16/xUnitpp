@@ -31,6 +31,11 @@ function(xunit_compiler_options target)
 		
 		# Remove __stdcall
 		target_compile_definitions(${target} PUBLIC "__stdcall=")
+
+		# On linux 64bit we should use position independent code, as we may get linked in a .so
+		if(${CMAKE_SIZEOF_VOID_P} EQUAL 8)
+			set_target_properties(${target} PROPERTIES POSITION_INDEPENDENT_CODE ON)
+		endif()
 	endif()
 endfunction()
 
