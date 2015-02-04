@@ -96,7 +96,7 @@ globrecurse_c_cpp_sources(XUNITPP_SRC_FILES_UTIL ${XUNITPP_ROOT_DIR}/xUnit++.Uti
 source_group(Source FILES ${XUNITPP_SRC_FILES_UTIL})
 
 # Library
-add_library(xunitpp_util ${XUNITPP_SRC_FILES_UTIL})
+add_library(xunitpp_util STATIC ${XUNITPP_SRC_FILES_UTIL})
 target_include_directories(xunitpp_util PUBLIC ${XUNITPP_ROOT_DIR}/xUnit++.Utility)
 target_link_libraries(xunitpp_util xunitpp_core)
 xunit_compiler_options(xunitpp_util)
