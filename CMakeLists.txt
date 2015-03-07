@@ -25,7 +25,7 @@ function(xunit_compiler_options target)
 		target_compile_definitions(${target} PRIVATE _CRT_SECURE_NO_WARNINGS)
 	endif()
 
-	if(MINGW OR CMAKE_COMPILER_IS_GNUCXX OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
+	if(MINGW OR CMAKE_COMPILER_IS_GNUCXX OR ${CMAKE_CXX_COMPILER_ID} MATCHES "(C|c?)lang")
 		# Enable C++11 if gcc or clang
 		target_compile_options(${target} PUBLIC "-std=c++11")
 		
