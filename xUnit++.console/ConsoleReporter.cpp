@@ -7,6 +7,7 @@
 #include <mutex>
 #include <string>
 #include <unordered_map>
+#include <vector>
 #include "xUnit++/EventLevel.h"
 #include "xUnit++/LineInfo.h"
 #include "xUnit++/ITestDetails.h"
